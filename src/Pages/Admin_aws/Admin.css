@@ -1,0 +1,36 @@
+/* Admin.css */
+
+
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+
+th, td {
+  border: 1px solid #000000;
+  padding: 8px;
+  text-align: left;
+ 
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+/* You can add more specific styles or override existing ones as needed */

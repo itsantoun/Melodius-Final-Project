@@ -1,0 +1,47 @@
+/* Table style */
+
+.profile-container {
+    float: center; /* or use any other CSS positioning method */
+    margin-left: 25%; /* adjust as needed */
+  }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Table header style */
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Table cell style */
+  td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  /* Alternating row color */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Button style */
+  button {
+    
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    /* background-color: blue; */
+  }
+  

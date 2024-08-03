@@ -1,0 +1,126 @@
+/* MyPosts.css */
+
+.my-posts-container {
+    display: flex;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.mps-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Arrange tabs at the top and content below */
+}
+
+.mps-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mps-tabs button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.mps-tabs button.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
+.mps-feed-container {
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+    width: 100%;
+    flex: 1;
+}
+
+.mps-feed-content {
+    width: 75%; /* Adjust the width as needed */
+    max-width: 1200px; /* Adjust the max-width as needed */
+}
+
+.mps-announcements, .mps-feed {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mps-feed h2 {
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.mps-announcement-item, .mps-feed-post {
+    display: inline-block;
+    width: calc(25% - 20px); /* 4 items per row with 20px gap */
+    margin: 10px;
+    vertical-align: top;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mps-announcement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mps-announcement-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.mps-announcement-text, .mps-feed-post p {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+img, video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.mps-delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 12px;
+}
+
+.mps-delete-button:hover {
+    background-color: #c82333;
+}
+
+.mps-success-message, .mps-error-message {
+    color: #28a745;
+    margin-top: 10px;
+}
+
+.mps-error-message {
+    color: #dc3545;
+}
+
+small {
+    color: #666;
+    font-size: 12px;
+}

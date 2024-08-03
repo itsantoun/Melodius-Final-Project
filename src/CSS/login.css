@@ -1,0 +1,107 @@
+/* login.css */
+
+@font-face {
+  font-family: 'Symphony in ABC';
+  src: url('../Font/symphony.ttf') format('truetype');
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 98vh;
+  margin: 0;
+ 
+  background-color: #41729F;
+}
+
+.img-login {
+  max-width: 100%; /* Set the maximum width of the image to fill the available space */
+  max-height: 100%; /* Set the maximum height of the image to fill the available space */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-top: 0.3rem;
+  border-radius: 0 5px 5px 0; /* Add border radius to the right side */
+}
+
+.info {
+  display: flex;
+  border-radius: 0.5rem;
+  height: 25rem;
+}
+
+.welcome {
+  flex: 1;
+  background-color: #C3E0E5;
+  border-radius: 0rem 0.5rem 0.5rem 0rem;
+  padding: 20px;
+  width: 23rem;
+}
+
+.signin {
+  background-color: #C3E0E5;
+  padding: 20px;
+  width: 25rem; /* Adjust the width as needed */
+  border-radius: 0rem 0.5rem 0.5rem 0rem;
+}
+
+
+.welcome {
+ background-color: #274472;
+ border-radius: 0.5rem 0rem 0rem 0.5rem;
+ 
+}
+
+.welcome p{
+  font-size: 25px;
+  font-family: 'Symphony in ABC', sans-serif;
+  color: #C3E0E5;
+  letter-spacing: 2px;
+ }
+
+
+.info p {
+  margin: 5px 0; /* Adjusted margin for paragraphs */
+  /* color: #274472; */
+}
+
+h1 {
+  text-align: center;
+  color: #274472;
+}
+
+.info h2 {
+  font-size: 20px;
+  color: red;
+}
+
+.input-box {
+  margin-bottom: 10px; /* Reduced margin */
+  padding: 10px; /* Increased padding */
+  font-size: 16px;
+  border: 1px solid #274472;
+  color: #274472;
+  border-radius: 4px;
+}
+
+.back-btn{
+  position: absolute;
+  margin-left: -12rem;
+  color: #274472;
+  font-size: 40px;
+}
+
+button {
+  background-color: #274472; /* Dark blue button color */
+  color: #fff;
+  padding: 12px 20px; /* Adjusted padding */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #41729F; /* Darker blue on hover */
+}

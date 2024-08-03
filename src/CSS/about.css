@@ -1,0 +1,32 @@
+body{
+    background-color: #41729F;
+    border: none;
+}
+.landing-page {
+    background-color: #C3E0E5;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+  }
+
+  .img-container{
+    display: flex;
+    margin-right: 10px;
+    margin-top: 10px;
+    justify-content: center; /* Align the image horizontally in the center */
+    align-items: center; /* Align the image vertically in the center */
+    height: 80%; 
+    width: auto; 
+    border-radius: 20px;
+  }
+
+.description{
+    text-align: left;
+    font-size: 20px;
+    margin: 2px;
+    line-height: 1.5;
+    padding: 2px;
+}

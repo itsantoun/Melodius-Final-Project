@@ -1,0 +1,79 @@
+/* UserDashboard.css */
+
+.sidebar {
+    height: 100%;
+    width: 200px; /* Adjust the width as needed */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333; /* Set your desired background color */
+    padding-top: 20px;
+   
+  }
+  
+  .header{
+    height: 70px;
+    color: aliceblue;
+   
+  }
+
+  .header h1{
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: bold;
+    
+  }
+  .header svg{
+    font-size: 30px;
+    border-radius: 50%;
+  }
+
+  .sidebar a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Style for the active link */
+  .sidebar a.active {
+    background-color: #555;
+  }
+
+  /* YourComponent.css */
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 40px;
+  }
+  
+  .items a,
+  .items button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px;
+    color: white; /* Set your desired text color */
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .items a:hover,
+  .items button:hover {
+    background-color: #eee; /* Set your desired hover background color */
+    color: #333;
+    transition: color 0.3s ease;
+}
+  
+  /* Icon styling */
+  .items svg {
+    margin-right: 10px;
+    font-size: 30px; /* Set your desired icon size */
+  
+}
+
+  
+

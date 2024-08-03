@@ -1,0 +1,82 @@
+body {
+    background-color: #ccc;
+    color: #41729F;
+   
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.container > div {
+    flex: 1;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-container {
+    max-width: 300px;
+    border-color: #41729F;
+    background-color: #C3E0E5;
+}
+
+.form-container h2 {
+    text-align: center;
+}
+
+.form-container label {
+    margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="date"],
+.form-container input[type="file"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 2px;
+    border: 1px solid #5885AF;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-container input[type="submit"] {
+    background-color: #5885AF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #274472;
+}
+
+/* Classnames for AddSheets component */
+.name label,
+.artistName label,
+.genre label,
+.datePublished label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.name input,
+.artistName input,
+.genre input,
+.datePublished input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 2px;
+    border: 1px solid #5885AF;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit {
+    margin-top: 15px;
+}

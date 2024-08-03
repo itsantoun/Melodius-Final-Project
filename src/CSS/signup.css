@@ -1,0 +1,124 @@
+/* signup.css */
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.box {
+  background-color: #C3E0E5;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Increased width for better layout */
+  width: 100%;
+  display: flex; /* Use flexbox */
+  flex-direction: row; /* Stack elements horizontally */
+  justify-content: space-between; /* Space out elements */
+  align-items: center; /* Align items vertically */
+}
+
+.info-left {
+  flex: 1; /* Take up available space */
+}
+
+.info-right {
+  flex: 1; /* Take up available space */
+  text-align: right; /* Align content to the right */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.inputs-container {
+  display: flex;
+  margin-bottom: 10px; /* Add margin to separate from other inputs */
+}
+
+.inputs-container input {
+  flex: 1;
+  background-color: #f3f4f6;
+  padding: 10px; /* Add padding to inputs */
+  margin-right: 5px; /* Adjust the spacing between inputs */
+  border: 1px solid #ccc; /* Add border to inputs */
+  border-radius: 5px; /* Add border radius */
+  box-sizing: border-box;
+}
+
+div input[type="radio"] {
+  margin-right: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px; /* Add padding to button */
+  border-radius: 5px; /* Add border radius */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.button-container {
+  margin-top: 10px; /* Adjust this margin as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.message {
+  width: 100%; /* Ensure the message spans the full width */
+  text-align: center; /* Center the text */
+  color: red; /* Or any other color you prefer */
+  font-size: 14px; /* Or any other font size you prefer */
+  margin-top: 10px; /* Adjust this margin as needed */
+}
+
+span.error {
+  color: red;
+  font-size: 14px;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+.img {
+  max-width: 50%; /* Set the maximum width of the image to fill the available space */
+  max-height: 100%; /* Set the maximum height of the image to fill the available space */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  border-radius: 0 5px 5px 0; /* Add border radius to the right side */
+}
+
+.back-btn{
+  position: absolute;
+  margin-left: -12rem;
+  color: #274472;
+  font-size: 40px;
+}
