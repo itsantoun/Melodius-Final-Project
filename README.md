@@ -1,6 +1,5 @@
 # Melodius - Music Web App (React + AWS)
 
-![Melodius Logo](public/logo.png) *(Optional: Add a logo if available)*
 
 A web-based music application built with **React** for the frontend and **Amazon Web Service** for backend services (authentication, storage, and database). This project allows users to explore, upload, and manage music tracks.
 
