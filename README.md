@@ -18,7 +18,7 @@ A web-based music application built with **React** for the frontend and **Amazon
 ### Prerequisites
 - **Node.js** (v14+)
 - **npm** (or **yarn**)
-- **Firebase Account** (for backend setup)
+- **AWS Account** (for backend setup)
 
 ### Steps to Run Locally
 
@@ -32,7 +32,7 @@ npm install
 # or
 yarn install
 
-🛠 Firebase Services Used
+🛠 AWS Services Used
 
 Authentication
 Email/password login & signup.
@@ -47,15 +47,5 @@ Stores uploaded music files.
 This project was last updated 1 year ago (as of 2024). Some dependencies may need updates.
 For AWS Storage/Database, ensure rules are configured in the AWS Console and Keys may be expired.
 
-
 ---
-
-### How to Use This README.md
-1. Replace placeholder text (e.g., `YOUR_API_KEY`) with actual Firebase credentials.
-2. Add a logo (if available) under `![Melodius Logo]()`.
-3. Update the **Features** section if additional functionality (e.g., playlists) is discovered in the code.
-4. Include **environment variables** (if used) in a `.env.example` file.
-
-Let me know if you'd like to add more details (e.g., screenshots, deployment steps)!
-
 
