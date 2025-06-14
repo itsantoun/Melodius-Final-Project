@@ -14,28 +14,6 @@ A web-based music application built with **React** for the frontend and **Amazon
 
 ---
 
-## 📂 Project Structure
-Melodius-Final-Project/
-├── public/ # Static assets
-│ ├── index.html # Main HTML file
-│ └── (images/logo) # Static images (if any)
-├── src/
-│ ├── components/ # Reusable UI components
-│ ├── pages/ # Main application pages
-│ │ ├── Home.js # Dashboard/landing page
-│ │ ├── Login.js # User login
-│ │ ├── Signup.js # User registration
-│ │ └── Upload.js # Music upload (if available)
-│ ├── firebase.js # Firebase config & initialization
-│ ├── App.js # Root React component
-│ ├── index.js # React entry point
-│ └── (styles.css) # Global CSS (if any)
-├── package.json # Project dependencies
-└── README.md # Project documentation
-
-
----
-
 ## 🔧 Setup & Installation
 
 ### Prerequisites
