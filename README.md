@@ -1,71 +1,84 @@
-# Getting Started with Create React App
+# Melodius - Music Web App (React + AWS)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Melodius Logo](public/logo.png) *(Optional: Add a logo if available)*
 
-## Available Scripts
+A web-based music application built with **React** for the frontend and **Amazon Web Service** for backend services (authentication, storage, and database). This project allows users to explore, upload, and manage music tracks.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
+- **User Authentication** (Login/Signup) via AWS Cognito.
+- **Music Upload** (if implemented) using S3 Storage.
+- **Responsive UI** built with React and CSS.
+- **Routing** handled by `react-router-dom`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📂 Project Structure
+Melodius-Final-Project/
+├── public/ # Static assets
+│ ├── index.html # Main HTML file
+│ └── (images/logo) # Static images (if any)
+├── src/
+│ ├── components/ # Reusable UI components
+│ ├── pages/ # Main application pages
+│ │ ├── Home.js # Dashboard/landing page
+│ │ ├── Login.js # User login
+│ │ ├── Signup.js # User registration
+│ │ └── Upload.js # Music upload (if available)
+│ ├── firebase.js # Firebase config & initialization
+│ ├── App.js # Root React component
+│ ├── index.js # React entry point
+│ └── (styles.css) # Global CSS (if any)
+├── package.json # Project dependencies
+└── README.md # Project documentation
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🔧 Setup & Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
+- **Node.js** (v14+)
+- **npm** (or **yarn**)
+- **Firebase Account** (for backend setup)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Steps to Run Locally
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/itsantoun/Melodius-Final-Project.git
+   cd Melodius-Final-Project
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+npm install
+# or
+yarn install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🛠 Firebase Services Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Authentication
+Email/password login & signup.
+AWS Database (if implemented)
+Stores user data or track metadata.
+Storage
+Stores uploaded music files.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+📌 Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project was last updated 1 year ago (as of 2024). Some dependencies may need updates.
+For AWS Storage/Database, ensure rules are configured in the AWS Console and Keys may be expired.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### How to Use This README.md
+1. Replace placeholder text (e.g., `YOUR_API_KEY`) with actual Firebase credentials.
+2. Add a logo (if available) under `![Melodius Logo]()`.
+3. Update the **Features** section if additional functionality (e.g., playlists) is discovered in the code.
+4. Include **environment variables** (if used) in a `.env.example` file.
 
-### Analyzing the Bundle Size
+Let me know if you'd like to add more details (e.g., screenshots, deployment steps)!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Melodius-Final-Project
