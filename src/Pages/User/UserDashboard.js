@@ -11,10 +11,8 @@ function Dashboard() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        // Check if user is already authenticated
         await getSession();
       } catch (error) {
-        // If not authenticated, redirect to signin page
         navigate('/signin');
       }
     };
@@ -22,11 +20,28 @@ function Dashboard() {
     checkSession();
   }, [getSession, navigate]);
 
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <Account>
       <>
         <UserSidebar />
-       
+        <div className="dashboard-content">
+          <h1>Dashboard</h1>
+          <div className="button-container">
+            <button onClick={() => handleNavigate('/my_posts')} className="dashboard-button">
+              My Posts
+            </button>
+            <button onClick={() => handleNavigate('/announcements')} className="dashboard-button">
+              Announcements
+            </button>
+            <button onClick={() => handleNavigate('/library')} className="dashboard-button">
+              Library
+            </button>
+          </div>
+        </div>
       </>
     </Account>
   );

@@ -4,7 +4,6 @@ import '../../CSS/login.css';
 import { AccountContext } from './Account';
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import signinIMG from '../../Assets/signin.jpg';
-import ForgotPassword from './ForgotPassword';
 
 function Signin() {
     const { getSession, authenticate } = useContext(AccountContext);
@@ -18,7 +17,7 @@ function Signin() {
         const checkSession = async () => {
             try {
                 await getSession();
-                navigate('/UserDashboard');
+                navigate('/Profile');
             } catch (error) {
                 console.error('User not signed in:', error);
             }
@@ -28,15 +27,15 @@ function Signin() {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        setIsLoading(true); // Set loading state to true while authenticating
+        setIsLoading(true); 
 
         try {
             await authenticate(email, password);
             console.log("Logged in successfully");
-            if (email === 'test@aws.com') {
+            if (email === 'antoun.atallah@icloud.com') {
                 navigate('/AdminDashboard');
             } else {
-                navigate('/UserDashboard');
+                navigate('/profile');
             }
         } catch (error) {
             console.error("Failed to login:", error);
@@ -72,7 +71,7 @@ function Signin() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <p>Forgot your password? <Link to="/forgotPassword">Reset Password</Link> </p>
+                           
                             <p>Don't have an account yet? <a href='/signup'>Create one!</a></p>
                             <button type="submit" disabled={isLoading}>
                                 {isLoading ? 'Signing in...' : 'Sign in'}

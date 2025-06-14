@@ -2,203 +2,237 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
-
 const AWS = require('aws-sdk');
-
-const bcrypt = require('bcrypt');
-
-
+const bcrypt = require('bcryptjs');
 const app = express();
+
+// Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors());
 
-// for music sheets
-const pool = mysql.createPool({
+// MySQL Connection Pools
+const poolFiles = mysql.createPool({
     connectionLimit: 10,
     host: "music-sheets-db.cjvk1usvwbh8.us-east-1.rds.amazonaws.com",
     user: "master",
     password: "Apple.com123",
-    database: "Upload_files"
+    database: "Upload_files",
 });
 
-// Test database connection
-pool.getConnection((err, connection) => {
+const poolUsers = mysql.createPool({
+    connectionLimit: 10,
+    host: "music-sheets-db.cjvk1usvwbh8.us-east-1.rds.amazonaws.com",
+    user: "master",
+    password: "Apple.com123",
+    database: "user_info",
+});
+
+// Utility to Execute MySQL Queries
+const executeQuery = (pool, query, params = []) =>
+    new Promise((resolve, reject) => {
+        pool.query(query, params, (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(results);
+        });
+    });
+
+// AWS Cognito Setup
+AWS.config.update({ region: 'us-east-1' });
+const cognito = new AWS.CognitoIdentityServiceProvider();
+
+// Test Database Connections
+poolFiles.getConnection((err, connection) => {
     if (err) {
-        console.error("Database connection error:", err);
+        console.error('Error connecting to Upload_files database:', err);
     } else {
-        console.log('Database connected');
+        console.log('Connected to Upload_files database.');
         connection.release();
     }
 });
 
-// Cache frequently accessed data if possible
-
-app.get('/', (req, res) => {
-    res.json('Connected to the Server!');
-});
-
-
-app.post('/', (req, res) => {
-    const { name, artistName, genre, datePublished, file_data, file_name } = req.body;
-    const query = "INSERT INTO test6 (name, artistName, genre, datePublished, file_data, file_name) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [name, artistName, genre, datePublished, file_data, file_name];
-
-    pool.query(query, values, (err, result) => {
-        if (err) {
-            console.error("Error inserting record:", err);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-        console.log("Record inserted:", result);
-        res.json('Form received');
-    });
-});
-
-
-// Retrieve only necessary columns to reduce data transfer
-app.get('/table-data', (req, res) => {
-    const query = "SELECT id, name, artistName, genre, datePublished, file_name FROM test6";
-
-    pool.query(query, (err, result) => {
-        if (err) {
-            console.error("Error retrieving data:", err);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-        console.log("Data retrieved:", result);
-        res.json(result);
-    });
-});
-
-app.delete('/delete/:id', (req, res) => {
-    const id = req.params.id;
-    const query = "DELETE FROM test6 WHERE id = ?";
-
-    pool.query(query, [id], (err, result) => {
-        if (err) {
-            console.error("Error deleting record:", err);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-        console.log("Record deleted:", result);
-        res.json('Record deleted');
-    });
-});
-
-app.get('/download/:id', (req, res) => {
-    const id = req.params.id;
-    const query = "SELECT file_data FROM test6 WHERE id = ?";
-
-    pool.query(query, [id], (err, result) => {
-        if (err) {
-            console.error("Error retrieving file data:", err);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-        if (result.length > 0) {
-            const fileData = result[0].file_data;
-            res.setHeader('Content-type', 'application/pdf'); // Assuming it's a PDF file
-            res.send(fileData);
-        } else {
-            res.status(404).json({ error: "File not found" });
-        }
-    });
-});
-
-
-
-// User_info:
-// User_info database configuration
-const userDb = mysql.createConnection({
-    host: "music-sheets-db.cjvk1usvwbh8.us-east-1.rds.amazonaws.com",
-    user: "master",
-    password: "Apple.com123",
-    database: "user_info"
-});
-
-userDb.connect((err) => {
+poolUsers.getConnection((err, connection) => {
     if (err) {
-        console.error('Database connection failed:', err.stack);
-        return;
+        console.error('Error connecting to user_info database:', err);
+    } else {
+        console.log('Connected to user_info database.');
+        connection.release();
     }
-    console.log('Connected to user database.');
 });
 
-AWS.config.update({ region: 'us-east-1' });
-const cognito = new AWS.CognitoIdentityServiceProvider();
+// Routes
+app.get('/', (req, res) => res.json({ message: 'Connected to the Server!' }));
 
-app.get('/users', (req, res) => {
-    const sql = 'SELECT * FROM users';
+// Add Music Sheet
+// app.post('/', async (req, res) => {
+//     const { name, artistName, genre, datePublished, file_data, file_name } = req.body;
+//     try {
+//         const query = `
+//             INSERT INTO test6 (name, artistName, genre, datePublished, file_data, file_name,preview_related)
+//             VALUES (?, ?, ?, ?, ?, ?)
+//         `;
+//         await executeQuery(poolFiles, query, [name, artistName, genre, datePublished, file_data, file_name]);
+//         res.status(201).json({ message: 'Music sheet added successfully' });
+//     } catch (err) {
+//         console.error('Error adding music sheet:', err);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 
-    userDb.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching users:', err);
-            return res.status(500).json({ message: 'Database error' });
+app.post('/', async (req, res) => {
+    const { name, artistName, genre, datePublished, file_data, file_name, preview_related } = req.body; // Include preview_related
+    try {
+        const query = `
+            INSERT INTO test6 (name, artistName, genre, datePublished, file_data, file_name, preview_related)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `;
+        await executeQuery(poolFiles, query, [name, artistName, genre, datePublished, file_data, file_name, preview_related]);
+        res.status(201).json({ message: 'Music sheet added successfully' });
+    } catch (err) {
+        console.error('Error adding music sheet:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Get Music Sheets
+// app.get('/table-data', async (req, res) => {
+//     try {
+//         const query = 'SELECT id, name, artistName, genre, datePublished, file_name FROM test6';
+//         const data = await executeQuery(poolFiles, query);
+//         res.status(200).json(data);
+//     } catch (err) {
+//         console.error('Error retrieving table data:', err);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+// app.get('/table-data', async (req, res) => {
+//     try {
+//         const query = 'SELECT id, name, artistName, genre, datePublished, file_name, preview_related FROM test6'; // Include preview_related
+//         const data = await executeQuery(poolFiles, query);
+//         res.status(200).json(data);
+//     } catch (err) {
+//         console.error('Error retrieving table data:', err);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+app.get('/table-data', async (req, res) => {
+    try {
+        const query = 'SELECT id, name, artistName, genre, datePublished, file_name, preview_related FROM test6';
+        const data = await executeQuery(poolFiles, query);
+
+        // Convert Blob to Base64 for `preview_related`
+        const transformedData = data.map((item) => {
+            if (item.preview_related) {
+                const base64Image = Buffer.from(item.preview_related).toString('base64');
+                item.preview_related = `data:image/png;base64,${base64Image}`;
+            }
+            return item;
+        });
+
+        res.status(200).json(transformedData);
+    } catch (err) {
+        console.error('Error retrieving table data:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Delete Music Sheet
+app.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const query = 'DELETE FROM test6 WHERE id = ?';
+        await executeQuery(poolFiles, query, [id]);
+        res.status(200).json({ message: 'Music sheet deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting music sheet:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Download File
+app.get('/download/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const query = 'SELECT file_data FROM test6 WHERE id = ?';
+        const [file] = await executeQuery(poolFiles, query, [id]);
+
+        if (!file) {
+            return res.status(404).json({ message: 'File not found' });
         }
-        res.status(200).json(results);
-    });
+
+        res.setHeader('Content-Type', 'application/pdf'); // Assuming the file is a PDF
+        res.send(file.file_data);
+    } catch (err) {
+        console.error('Error downloading file:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
+// Get All Users
+app.get('/users', async (req, res) => {
+    try {
+        const query = 'SELECT * FROM users';
+        const users = await executeQuery(poolUsers, query);
+        res.status(200).json(users);
+    } catch (err) {
+        console.error('Error fetching users:', err);
+        res.status(500).json({ message: 'Database error' });
+    }
+});
+
+// Delete User
+app.delete('/deleteUser/:userId', async (req, res) => {
+    const { userId } = req.params;
+    const { email } = req.body;
+
+    try {
+        // Delete related records in announcements
+        await executeQuery(poolUsers, 'DELETE FROM announcements WHERE user_id = ?', [userId]);
+
+        // Delete user from MySQL
+        await executeQuery(poolUsers, 'DELETE FROM users WHERE id = ?', [userId]);
+
+        // Delete user from AWS Cognito
+        const params = {
+            UserPoolId: 'us-east-1_aj3MKp9bc', // Replace with your UserPoolId
+            Username: email,
+        };
+        cognito.adminDeleteUser(params, (err) => {
+            if (err) {
+                console.error('Error deleting user from Cognito:', err);
+                return res.status(500).json({ message: 'Failed to delete user from Cognito' });
+            }
+            res.status(200).json({ message: 'User deleted successfully' });
+        });
+    } catch (err) {
+        console.error('Error deleting user:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Signup User
 app.post('/signup', async (req, res) => {
     const { firstName, lastName, displayName, email, password, dateOfBirth, address, userType } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const sql = 'INSERT INTO users (firstName, lastName, displayName, email, password, dateOfBirth, address, userType) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        const values = [firstName, lastName, displayName, email, hashedPassword, dateOfBirth, address, userType];
-
-        userDb.query(sql, values, (err, results) => {
-            if (err) {
-                console.error('Error inserting user:', err);
-                return res.status(500).json({ message: 'Database error' });
-            }
-            res.status(200).json({ message: 'User registered successfully' });
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ message: 'Server error' });
+        const query = `
+            INSERT INTO users (firstName, lastName, displayName, email, password, dateOfBirth, address, userType)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        await executeQuery(poolUsers, query, [firstName, lastName, displayName, email, hashedPassword, dateOfBirth, address, userType]);
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (err) {
+        console.error('Error signing up user:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-app.delete('/deleteUser/:userId', (req, res) => {
-    const userId = req.params.userId;
-
-    // First, fetch the user's email from the database
-    userDb.query('SELECT email FROM users WHERE id = ?', [userId], (err, results) => {
-        if (err) {
-            console.error('Error fetching user email:', err);
-            return res.status(500).json({ message: 'Database error: unable to fetch user email', error: err });
-        }
-
-        if (results.length === 0) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        const email = results[0].email;
-
-        // Delete user from MySQL
-        userDb.query('DELETE FROM users WHERE id = ?', [userId], (err) => {
-            if (err) {
-                console.error('Error deleting user from database:', err);
-                return res.status(500).json({ message: 'Database error: unable to delete user', error: err });
-            }
-
-            // Delete user from AWS Cognito
-            const params = {
-                UserPoolId: "us-east-1_aj3MKp9bc", // Replace with your UserPoolId
-                Username: email
-            };
-
-            cognito.adminDeleteUser(params, (err) => {
-                if (err) {
-                    console.error('Error deleting user from Cognito:', err);
-                    return res.status(500).json({ message: 'Cognito error: unable to delete user', error: err });
-                }
-
-                res.status(200).json({ message: 'User deleted successfully' });
-            });
-        });
-    });
-});
-
-
+// Start Server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

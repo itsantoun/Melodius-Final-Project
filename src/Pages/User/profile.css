@@ -1,47 +1,79 @@
-/* Table style */
-
+/* General Profile Container */
 .profile-container {
-    float: center; /* or use any other CSS positioning method */
-    margin-left: 25%; /* adjust as needed */
+  max-width: 80%; /* Set a max width for the container */
+ margin-left: 20%;
+  padding: 20px; /* Add some padding around the container */
+  background-color: #ffffff; /* White background for contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Table style */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* Table header style */
+th {
+  background-color: #f2f2f2;
+  border: 1px solid #dddddd;
+  padding: 12px; /* Increased padding for a better touch area */
+  text-align: left;
+  font-weight: bold; /* Make headers bold */
+}
+
+/* Table cell style */
+td {
+  border: 1px solid #dddddd;
+  padding: 12px; /* Increased padding for a better touch area */
+}
+
+/* Alternating row color */
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Slightly lighter color for better differentiation */
+}
+
+/* Button styles */
+button {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  padding: 10px 15px; /* Adjusted padding */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px; /* Increased font size for better readability */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Success and error messages */
+.success-message {
+  color: #28a745; /* Green for success */
+  font-weight: bold; /* Bold text for emphasis */
+}
+
+.error-message {
+  color: #dc3545; /* Red for errors */
+  font-weight: bold; /* Bold text for emphasis */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-container {
+      padding: 15px; /* Reduced padding on smaller screens */
   }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  table {
+      font-size: 14px; /* Smaller font size for smaller screens */
   }
-  
-  /* Table header style */
-  th {
-    background-color: #f2f2f2;
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  /* Table cell style */
-  td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-  }
-  
-  /* Alternating row color */
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  /* Button style */
+
   button {
-    
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+      width: 100%; /* Make buttons full-width on small screens */
   }
-  
-  /* Button hover effect */
-  button:hover {
-    /* background-color: blue; */
-  }
-  
+}

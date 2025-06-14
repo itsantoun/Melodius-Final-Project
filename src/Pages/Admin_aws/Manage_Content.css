@@ -1,0 +1,209 @@
+.manage-content-container {
+    display: flex;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.admin-sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-sidebar ul li {
+    margin: 10px 0;
+}
+
+.admin-sidebar ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.admin-sidebar ul li a:hover {
+    background-color: #34495e;
+}
+
+/* Content */
+.mc-content {
+    flex: 1;
+    margin-left: 250px; /* Offset content to the right of the sidebar */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Tabs Centered */
+.mc-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mc-tabs button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mc-tabs button.active {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.mc-tabs button:hover {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+/* Feed Container */
+.mc-feed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Space between sections */
+}
+
+/* Horizontal Scrolling */
+.mc-announcements,
+.mc-feed {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 20px; /* Space between cards */
+    padding: 10px;
+}
+
+.mc-announcements::-webkit-scrollbar,
+.mc-feed::-webkit-scrollbar {
+    height: 8px;
+}
+
+.mc-announcements::-webkit-scrollbar-thumb,
+.mc-feed::-webkit-scrollbar-thumb {
+    background-color: #34495e;
+    border-radius: 4px;
+}
+
+.mc-announcements::-webkit-scrollbar-track,
+.mc-feed::-webkit-scrollbar-track {
+    background-color: #ecf0f1;
+    border-radius: 4px;
+}
+
+/* Cards */
+.mc-announcement-item,
+.mc-feed-post {
+    flex: 0 0 auto; /* Prevent overlapping, maintain fixed size */
+    width: 200px;
+    height: 200px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.mc-announcement-item:hover,
+.mc-feed-post:hover {
+    transform: scale(1.05);
+}
+
+.mc-announcement-item h3,
+.mc-feed-post h3 {
+    font-size: 16px;
+    color: #2c3e50;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.mc-announcement-item small,
+.mc-feed-post small {
+    color: #95a5a6;
+    font-size: 12px;
+}
+
+.mc-announcement-item p,
+.mc-feed-post p {
+    font-size: 14px;
+    color: #7f8c8d;
+    text-align: center;
+}
+
+.mc-feed-post img,
+.mc-feed-post video {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Delete Button */
+.mc-delete-button {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: center;
+}
+
+.mc-delete-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Success and Error Messages */
+.mc-success-message {
+    background-color: #2ecc71;
+    color: #ffffff;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.mc-error-message {
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+}

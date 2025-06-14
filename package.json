@@ -14,10 +14,14 @@
     "aws-amplify": "^6.0.27",
     "aws-sdk": "^2.1584.0",
     "axios": "^1.6.5",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.7.1",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "pdfjs-dist": "^4.8.69",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-datepicker": "^4.25.0",
@@ -45,7 +49,6 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000",
-  
   "eslintConfig": {
     "extends": [
       "react-app",

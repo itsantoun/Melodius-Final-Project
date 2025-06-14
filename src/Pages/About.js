@@ -1,30 +1,24 @@
 import React from 'react'
-import NavBar from './NavBar'
-import me2 from '../Assets/me2.png'
+import logoMelodius from '../Assets/logoMelodious.jpg'
 import '../CSS/about.css'
 
 function About() {
   return (
   
     <div>
-  <NavBar/>
+  {/* <NavBar/> */}
     <div className="landing-page">
       <div className="landing-content">
         <div >
-          <h1>Hi Everyone</h1>
-          <p className="description"  >My name is Antoun Atallah, an upcoming graduate Computer Science
-            at the <a href='https://www.lau.edu.lb'>Lebanese American Univeristy.</a> I am also a pianist with a Baccalaureat degree from the <a href='https://www.conservatory.gov.lb'> Lebanese Higher National conservatory of Music</a> and have a strong
-            passion for both coding and music. So for my final project I decided to create a website that 
-            would fit both of my interests in one big Project.
-
-            The concept of this website is to connect musiscians from around the globe, and dedicate this
-            website only for musers and singers as well! Where they can meet and collab with each other!
-            So Thank you for visiting my website and hope you enjoy it :)
-          </p>
+          <h1>Welcome to Melodius</h1>
+          <p className="description"  >The Music Network is a web application that caters to the needs of all musicians, composers, and producers in a way which no other online medium has ever sought to do. Professional networking in the music world today has become very important if one wants to grow or succeed in his vocation. Still, none of these currently available platforms-like LinkedIn-offer ideal conditions and opportunities for musicians. This is where the platform fills the void by allowing a place that is personally owned by each musician, to showcase their talent and artistic expression, share one's work, and network.
+It provides a home for a musician of any rank, providing the place they need to take their work to the next level. Profiles are long, featuring portfolios and even endorsements from colleagues to build up one's reputation. Advanced search-and-network facilities make it easy to find colleagues, collaborators, industry pros, or even potential employers based on genre, instrument, and skill level.
+Advanced collaboration allows for the facility of a web-based workspace for projects, thereby allowing students to create projects and build on those projects with their peers in real-time; its music library feature will let users store their compositions and recordings, share them, and solicit feedback. It lets music become the center for all your music activities.
+     </p>
           
         </div>
         <div className="img-container">
-          <img className="img-container" src={me2} alt="Your Image" />
+          <img className="img-container" src={logoMelodius} alt="Your Image" />
         </div>
         </div> 
       </div>

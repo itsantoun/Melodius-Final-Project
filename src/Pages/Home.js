@@ -15,13 +15,14 @@ function Home() {
     <>
      
       <div>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className="landing-page">
         <div className="landing-content">
           <div className="text">
             <h1>Welcome to Melodious</h1>
             <p>A Place Dedicated for Artists</p>
-            <button className="cta-button">Get Started</button>
+            {/* <button className="cta-button">Get Started</button> */}
+            <Link to='/signup' className="cta-button">Get Started</Link>
           </div>
           <div className="image-container">
             <img src={Image} alt="Your Image" />
@@ -37,7 +38,7 @@ function Home() {
       <div class="box-text">Search and Explore any type of music sheet you want to play or sing</div>
     </div>
     <div class="service-box">
-      <div class="box-text">Chat with People that fill your interest and start sharing your thoughts and performances</div>
+      <div class="box-text">Post and Connect with other musicians that fits you!</div>
     </div>
     {/* <div class="service-box">
       <div class="box-text">Text for service 3</div>
@@ -52,7 +53,7 @@ function Home() {
 
 
 <div class="landing-page-steps">
-<h2>How to join?</h2>
+<h2 class="h2-what-for">How to join ???</h2>
   <div class="steps">
     <ol>
       <li><span class="step-number"><TbCircleNumber1 /></span> Create an Account</li>

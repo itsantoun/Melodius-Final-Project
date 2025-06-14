@@ -27,7 +27,7 @@ function UserSidebar() {
    </div>
 
    <div className='items'>
-   <Link to='/UserDashboard'><MdOutlineDashboard /> Dashboard</Link>
+   {/* <Link to='/UserDashboard'><MdOutlineDashboard /> Dashboard</Link> */}
    <Link to='/Profile'><CgProfile />My Profile</Link>
    {/* <Link to='/ChatPage'><BsChatSquareDots  /> Chats</Link> */}
    <Link to='/feedPage'><BsCameraReels  /> Feeds</Link>

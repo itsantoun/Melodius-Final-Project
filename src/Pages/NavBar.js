@@ -27,7 +27,7 @@ function NavBar() {
         <Link to='/about'>About</Link>
         <Link to='/library'>Library</Link>
         {isLoggedIn() ? (
-          <Link to='/UserDashboard' className="login-button">
+          <Link to='/signin' className="login-button">
             My Account
           </Link>
         ) : (

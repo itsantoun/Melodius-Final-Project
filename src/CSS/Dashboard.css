@@ -1,11 +1,3 @@
-/* body {
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  color: #9e9ea4;
-  font-family: 'Montserrat', sans-serif;
-} */
-
 .icon {
   vertical-align: middle;
   line-height: 1px;
@@ -170,7 +162,103 @@
 }
 
 
-/* End Main  */
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background-color: #f0f8ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.welcome-banner h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.welcome-banner p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Stats Overview */
+.stats-overview {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  text-align: center;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card p {
+  font-size: 24px;
+  color: #555;
+}
+
+/* Recent Activities */
+.recent-activities {
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.recent-activities h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.recent-activities ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recent-activities li {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  color: #555;
+}
+
+.recent-activities li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Loader */
+.loading {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 50px;
+  color: #333;
+}
+
 
 
 /* Medium <= 992px */
@@ -273,12 +361,41 @@ label {
   cursor: pointer;
 }
 
-.submit-button:hover {
-  background-color: ;
-}
 
 .right-panel {
   margin-top: 20px;
+}
+
+/* System Metrics */
+.system-metrics {
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.system-metrics h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.system-metrics ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.system-metrics li {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  color: #555;
+}
+
+.system-metrics li:hover {
+  background-color: #f0f0f0;
 }
 
 

@@ -7,8 +7,10 @@ function AddSheets() {
   const [formData, setFormData] = useState({ name: '', genre: '', artistName: '', datePublished: '' });
   const [tableData, setTableData] = useState([]);
   const [file, setFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null); // Add this state
   const [bucketContents, setBucketContents] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
+
 
   const [bucketFileNames, setBucketFileNames] = useState([]);
 
@@ -40,33 +42,91 @@ function AddSheets() {
     }
   }
 
+  const handlePreviewImageChange = (event) => {
+    const selectedImage = event.target.files[0];
+    setPreviewImage(selectedImage);
+  };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     let formDataWithFile = { ...formData };
+  
+  //     const uploadPromises = [];
+  
+  //     // Upload the main file
+  //     if (file) {
+  //       uploadPromises.push(
+  //         uploadFileToS3(file).then((fileKey) => {
+  //           formDataWithFile.file_name = fileKey;
+  //         })
+  //       );
+  //     }
+  
+  //     // Upload the preview image
+  //     if (previewImage) {
+  //       uploadPromises.push(
+  //         uploadFileToS3(previewImage).then((previewKey) => {
+  //           formDataWithFile.preview_related = previewKey;
+  //         })
+  //       );
+  //     }
+  
+  //     // Wait for all uploads to complete
+  //     await Promise.all(uploadPromises);
+  
+  //     // Submit form data to the server
+  //     submitFormData(formDataWithFile);
+  
+  //     // Reset states
+  //     setFormData({ name: '', genre: '', artistName: '', datePublished: '' });
+  //     setFile(null);
+  //     setPreviewImage(null);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      let formDataWithFile = { ...formData };
-      
-      // If a file is selected, read it and attach it to the form data
-      if (file) {
-        const fileReader = new FileReader();
-        fileReader.onload = function(event) {
-          formDataWithFile = {
-            ...formDataWithFile,
-            file_data: event.target.result, // Attaching file data to the form data
-            file_name: file.name // Attaching file name to the form data
-          };
-  
-          submitFormData(formDataWithFile);
-          uploadFileToS3();
-        };
-        fileReader.readAsDataURL(file); // Read file as data URL
-      } else {
-        // If no file is selected, directly submit the form data
+        let formDataWithFile = { ...formData };
+
+        const uploadPromises = [];
+
+        // Upload the main file
+        if (file) {
+            uploadPromises.push(
+                uploadFileToS3(file).then((fileKey) => {
+                    formDataWithFile.file_name = fileKey;
+                })
+            );
+        }
+
+        // Upload the preview image
+        if (previewImage) {
+            uploadPromises.push(
+                uploadFileToS3(previewImage).then((previewKey) => {
+                    formDataWithFile.preview_related = previewKey;
+                })
+            );
+        }
+
+        // Wait for all uploads to complete
+        await Promise.all(uploadPromises);
+
+        // Submit form data to the server
         submitFormData(formDataWithFile);
-      }
+
+        // Reset states
+        setFormData({ name: '', genre: '', artistName: '', datePublished: '' });
+        setFile(null);
+        setPreviewImage(null);
     } catch (error) {
-      console.error('Error:', error);
+        console.error('Error:', error);
     }
-  }
+};
 
   const fetchTableData = async () => {
     try {
@@ -87,21 +147,24 @@ function AddSheets() {
   };
 
   const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this record?");
+    if (!confirmDelete) return;
+  
     try {
       const response = await fetch(`http://localhost:3001/delete/${id}`, {
         method: 'DELETE',
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       console.log("Record deleted");
       fetchTableData();
     } catch (error) {
       console.error('Error:', error);
     }
-  }
+  };
 
   useEffect(() => {
     // Fetch table data when component mounts
@@ -111,37 +174,78 @@ function AddSheets() {
   }, []);
 
   // Function to upload file to S3 bucket
-  const uploadFileToS3 = async () => {
-    const S3_BUCKET = "upload-music-sheets";
-    const REGION = "eu-west-3";
+//   const uploadFileToS3 = async (fileToUpload) => {
+//     const S3_BUCKET = "upload-music-sheets";
+//     const REGION = "eu-west-3";
 
-    AWS.config.update({
+//     AWS.config.update({
+//         accessKeyId: 'AKIA3H3JD6S4V7DQQAPJ',
+//         secretAccessKey: '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',
+//         region: REGION,
+//     });
+
+//     if (!fileToUpload || !fileToUpload.name) {
+//         throw new Error("No file selected for upload or file is invalid.");
+//     }
+
+//     const s3 = new AWS.S3({
+//         region: REGION,
+//     });
+
+//     const params = {
+//         Bucket: S3_BUCKET,
+//         Key: fileToUpload.name, // Use the file name
+//         Body: fileToUpload, // File content
+//         ContentType: fileToUpload.type, // MIME type of the file
+//     };
+
+//     try {
+//         console.log("Uploading file to S3 with params:", params);
+//         const upload = await s3.putObject(params).promise();
+//         console.log("Upload successful:", upload);
+//         return fileToUpload.name; // Return the file name as the S3 key
+//     } catch (error) {
+//         console.error("Error uploading file to S3:", error);
+//         throw error;
+//     }
+// };
+
+
+const uploadFileToS3 = async (fileToUpload) => {
+  const S3_BUCKET = "upload-music-sheets";
+  const REGION = "eu-west-3";
+
+  AWS.config.update({
       accessKeyId: 'AKIA3H3JD6S4V7DQQAPJ',
-        secretAccessKey: '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',
-
-    });
-
-    const s3 = new AWS.S3({
+      secretAccessKey: 'wp/uJlLoydEzwFcu8vRpJUixtXm2s4a8Nhz79UK6',
       region: REGION,
-    });
+  });
 
-    const params = {
+  if (!fileToUpload || !fileToUpload.name) {
+      throw new Error("No file selected for upload or file is invalid.");
+  }
+
+  const s3 = new AWS.S3({
+      region: REGION,
+  });
+
+  const params = {
       Bucket: S3_BUCKET,
-      Key: file.name,
-      Body: file,
-    };
-
-    try {
-      const upload = await s3.putObject(params).promise();
-      console.log(upload);
-      setFile(null);
-      fetchBucketContents(); // Refresh bucket contents after uploading
-      alert("File uploaded successfully.");
-    } catch (error) {
-      console.error(error);
-      alert("Error uploading file: " + error.message);
-    }
+      Key: fileToUpload.name, // Use the correct file name
+      Body: fileToUpload, // File content
+      ContentType: fileToUpload.type, // MIME type of the file
   };
+
+  try {
+      console.log("Uploading file to S3 with params:", params);
+      const upload = await s3.putObject(params).promise();
+      console.log("Upload successful:", upload);
+      return fileToUpload.name; // Return the file name as the S3 key
+  } catch (error) {
+      console.error("Error uploading file to S3:", error);
+      throw error;
+  }
+};
 
   // Function to fetch bucket contents
   const fetchBucketContents = async () => {
@@ -236,27 +340,6 @@ function AddSheets() {
     }
   };
 
-
-  // const downloadFileFromServer = async (id, fileName) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3001/download/${id}`);
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const blob = await response.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement('a');
-  //     link.href = url;
-  //     link.setAttribute('download', fileName);
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     link.parentNode.removeChild(link); // Clean up
-  //   } catch (error) {
-  //     console.error('Error downloading file:', error);
-  //     alert("Error downloading file: " + error.message);
-  //   }
-  // };
-  
    const retrieveBucketFileNames = async () => {
     try {
       const S3_BUCKET = "upload-music-sheets";
@@ -309,6 +392,11 @@ function AddSheets() {
 
           <div>
             <input id="file-input" type="file" onChange={(e) => setFile(e.target.files[0])} />
+          </div>
+
+          <div>
+            <label htmlFor="preview-input">Upload Preview Image:</label>
+            <input id="preview-input" type="file" accept="image/*" onChange={handlePreviewImageChange} />
           </div>
 
           <div className='submit'>
@@ -380,15 +468,6 @@ function AddSheets() {
               </tr>
             ))}
           </tbody>
-
-          {/* <tbody>
-            {bucketFileNames.map((fileName, index) => (
-              <tr key={index}>
-                <td>{fileName}</td>
-              </tr>
-            ))}
-          </tbody> */}
-
 
         </table>
       </div>

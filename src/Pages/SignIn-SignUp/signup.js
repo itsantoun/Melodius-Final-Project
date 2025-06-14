@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../CSS/signup.css';
-// import { RiUserFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import UserPool from './UserPool';
 import signupIMG from '../../Assets/signup.jpg';
@@ -9,7 +8,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
 
 function Signup() {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [displayName, setDisplayName] = useState('');
@@ -17,66 +16,29 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [address, setAddress] = useState('');
-    // const [avatar, setAvatar] = useState('');
     const [userType, setUserType] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [message, setMessage] = useState('');
-    const [verificationStep, setVerificationStep] = useState(false); // State variable to control verification step   
+    const [verificationStep, setVerificationStep] = useState(false);
 
-    // const onSubmit = (event) => {
-    //     event.preventDefault();
-
-    //     if (verificationStep) {
-    //         verifyUser();
-    //     } else {
-    //         // Proceed with signup
-    //         // Create a list of user attributes
-    //         const userAttributes = [
-    //             new CognitoUserAttribute({ Name: 'given_name', Value: firstName }),
-    //             new CognitoUserAttribute({ Name: 'family_name', Value: lastName }),
-    //             new CognitoUserAttribute({ Name: 'name', Value: displayName }),
-    //             new CognitoUserAttribute({ Name: 'birthdate', Value: dateOfBirth }),
-    //             new CognitoUserAttribute({ Name: 'address', Value: address }),
-    //             new CognitoUserAttribute({ Name: 'custom:userType', Value: userType })
-    //         ];
-
-    //         UserPool.signUp(email, password, userAttributes, null, (err, data) => {
-    //             if (err) {
-    //                 console.error('Error signing up:', err);
-    //                 let errorMessage = 'Something went wrong';
-    //                 if (err.code === 'UsernameExistsException') {
-    //                     errorMessage = (
-    //                         <>
-    //                             An account with this email already exists.
-    //                             <br />
-    //                             <span>
-    //                                 <Link to="/signin">Log in</Link>
-    //                             </span>
-    //                             &nbsp;instead ?
-    //                         </>
-    //                     );
-    //                 } else if (err.code === 'InvalidPasswordException') {
-    //                     errorMessage = 'Password must be at least 8 characters long and contain a mix of uppercase, lowercase, numbers, and special characters.';
-    //                 } else {
-    //                     errorMessage = `Error: ${err.message}`;
-    //                 }
-    //                 setMessage(errorMessage);
-    //             } else {
-    //                 console.log('Signup successful:', data);
-    //                 setMessage('Success: Please check your email for the verification code.');
-    //                 setVerificationStep(true); // Move to verification step
-    //             }
-    //         });
-    //     }
-    // };
+    // Email validation function
+    const isValidEmail = (email) => {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(email);
+    };
 
     const onSubmit = (event) => {
         event.preventDefault();
-    
+
+        // Validate email
+        if (!isValidEmail(email)) {
+            setMessage('Please enter a valid email address.');
+            return;
+        }
+
         if (verificationStep) {
             verifyUser();
         } else {
-            // Create a list of user attributes
             const userAttributes = [
                 new CognitoUserAttribute({ Name: 'given_name', Value: firstName }),
                 new CognitoUserAttribute({ Name: 'family_name', Value: lastName }),
@@ -85,7 +47,7 @@ function Signup() {
                 new CognitoUserAttribute({ Name: 'address', Value: address }),
                 new CognitoUserAttribute({ Name: 'custom:userType', Value: userType })
             ];
-    
+
             UserPool.signUp(email, password, userAttributes, null, (err, data) => {
                 if (err) {
                     console.error('Error signing up:', err);
@@ -110,9 +72,8 @@ function Signup() {
                 } else {
                     console.log('Signup successful:', data);
                     setMessage('Success: Please check your email for the verification code.');
-                    setVerificationStep(true); // Move to verification step
-    
-                    // Save user data to MySQL database
+                    setVerificationStep(true);
+
                     const userData = {
                         firstName,
                         lastName,
@@ -123,7 +84,7 @@ function Signup() {
                         address,
                         userType
                     };
-    
+
                     fetch('http://localhost:3002/signup', {
                         method: 'POST',
                         headers: {
@@ -131,20 +92,19 @@ function Signup() {
                         },
                         body: JSON.stringify(userData),
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message !== 'User registered successfully') {
-                            console.error('Error saving user data to MySQL:', data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message !== 'User registered successfully') {
+                                console.error('Error saving user data to MySQL:', data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                 }
             });
         }
     };
-    
 
     const verifyUser = () => {
         const user = new CognitoUser({ Username: email, Pool: UserPool });
@@ -155,7 +115,7 @@ function Signup() {
             } else {
                 console.log('Confirmation successful:', result);
                 setMessage('Success: Account confirmed successfully');
-                navigate('/UserDashboard'); // Redirect after successful verification
+                navigate('/UserDashboard');
             }
         });
     };
@@ -164,7 +124,7 @@ function Signup() {
         <div className="body">
             <div className="box">
                 <form onSubmit={onSubmit}>
-                    <Link to='/signin' className='back-btn' ><IoArrowBackCircleOutline /></Link>
+                    <Link to='/signin' className='back-btn'><IoArrowBackCircleOutline /></Link>
                     <span className="logo">Create an Account</span>
 
                     {!verificationStep && (
@@ -190,20 +150,20 @@ function Signup() {
 
                             <div>
                                 <label>
-                                    <input 
-                                        type="radio" 
-                                        value="musician" 
-                                        checked={userType === 'musician'} 
-                                        onChange={() => setUserType('musician')} 
+                                    <input
+                                        type="radio"
+                                        value="musician"
+                                        checked={userType === 'musician'}
+                                        onChange={() => setUserType('musician')}
                                     />
                                     Musician
                                 </label>
                                 <label>
-                                    <input 
-                                        type="radio" 
-                                        value="singer" 
-                                        checked={userType === 'singer'} 
-                                        onChange={() => setUserType('singer')} 
+                                    <input
+                                        type="radio"
+                                        value="singer"
+                                        checked={userType === 'singer'}
+                                        onChange={() => setUserType('singer')}
                                     />
                                     Singer
                                 </label>
@@ -213,22 +173,26 @@ function Signup() {
 
                     {message && <span className="message">{message}</span>}
 
-                    <div className="button-container">
-                        <button type="submit">{verificationStep ? 'Verify' : 'Sign up'}</button>
-                    </div>
+
 
                     {verificationStep && (
                         <div className="verification-container">
-                            <input required className='inputs' type="text" placeholder="Verification Code" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
+                            <div className="inputs-container">
+                                <input required className='inputs' type="text" placeholder="Verification Code" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
+                            </div>
                         </div>
                     )}
+
+                    <div className="button-container">
+                        <button type="submit">{verificationStep ? 'Verify' : 'Sign up'}</button>
+                    </div>
+                    <p>Already have an account? <a href='/signin'>Login</a></p>
                 </form>
 
-                <img src={signupIMG} className='img' alt='signup'/>
-                {/* <p>
-                    Already have an account? <Link to="/signin">Login</Link>
-                </p> */}
+                <img src={signupIMG} className='signupIMG' alt='signup' />
+               
             </div>
+            
         </div>
     );
 }

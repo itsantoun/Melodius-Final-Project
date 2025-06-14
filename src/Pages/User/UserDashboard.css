@@ -1,79 +1,160 @@
-/* UserDashboard.css */
-
+/* Sidebar Styling */
 .sidebar {
-    height: 100%;
-    width: 200px; /* Adjust the width as needed */
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #333; /* Set your desired background color */
-    padding-top: 20px;
-   
-  }
-  
-  .header{
-    height: 70px;
-    color: aliceblue;
-   
-  }
+  height: 100%;
+  width: 250px; /* Increased width for better visibility */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #2C3E50; /* Dark blue background for a modern look */
+  padding-top: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: width 0.3s ease; /* Smooth width transition */
+}
 
-  .header h1{
-    color: aliceblue;
-    text-decoration: none;
-    font-weight: bold;
-    
-  }
-  .header svg{
-    font-size: 30px;
-    border-radius: 50%;
-  }
+.sidebar:hover {
+  width: 270px; /* Slight expansion on hover */
+}
 
-  .sidebar a {
-    display: block;
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-  }
-  
-  /* Style for the active link */
-  .sidebar a.active {
-    background-color: #555;
-  }
+.header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #34495E; /* Darker shade for header */
+  color: #ecf0f1; /* Lighter text color */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle bottom border */
+}
 
-  /* YourComponent.css */
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+}
 
+.header svg {
+  font-size: 35px;
+  margin-right: 10px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 10px;
+  margin: 10px 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: #2980B9; /* Blue highlight on hover */
+  color: #ecf0f1; /* Lighter text color on hover */
+}
+
+.sidebar a.active {
+  background-color: #1ABC9C; /* Active link color */
+  color: #fff;
+}
+
+/* Item Section */
 .items {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-radius: 40px;
-  }
-  
-  .items a,
-  .items button {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 10px;
-    color: white; /* Set your desired text color */
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-  
-  .items a:hover,
-  .items button:hover {
-    background-color: #eee; /* Set your desired hover background color */
-    color: #333;
-    transition: color 0.3s ease;
-}
-  
-  /* Icon styling */
-  .items svg {
-    margin-right: 10px;
-    font-size: 30px; /* Set your desired icon size */
-  
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-  
+.items a,
+.items button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 12px;
+  color: #ecf0f1;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+.items a:hover,
+.items button:hover {
+  background-color: #2980B9;
+  color: #fff;
+}
+
+.items svg {
+  margin-right: 12px;
+  font-size: 24px;
+}
+
+/* Button Styling */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.dashboard-button {
+  background-color: #1ABC9C;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  margin: 0 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-button:hover {
+  background-color: #16A085;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Section Styling */
+.status-container {
+ margin-bottom: -5%;
+}
+
+.status-info p {
+  margin: 10px 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.logout-button {
+  background-color: #e74c3c; /* Red logout button */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.login-prompt {
+  font-size: 1rem;
+  color: #bdc3c7; /* Subtle prompt color */
+}

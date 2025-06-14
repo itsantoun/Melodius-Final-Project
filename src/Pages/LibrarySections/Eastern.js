@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Sections.css';
 import { FaSearch } from 'react-icons/fa';
-import NavBar from '../NavBar';
 import AWS from 'aws-sdk';
 
 function Eastern() {
-    const [formData, setFormData] = useState({ name: '', genre: '', artistName: '', datePublished: '' });
     const [tableData, setTableData] = useState([]);
     const [tableLoading, setTableLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -24,9 +22,8 @@ function Eastern() {
             }
             const data = await response.json();
             setTableData(data);
-            setFormData({ name: '', genre: '', artistName: '', datePublished: '' });
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error fetching table data:', error);
         } finally {
             setTableLoading(false);
         }
@@ -45,23 +42,23 @@ function Eastern() {
     const downloadFromS3 = (fileName) => {
         const S3_BUCKET = "upload-music-sheets";
         const REGION = "eu-west-3";
-        
+
         // Configure AWS SDK
         AWS.config.update({
             accessKeyId: 'AKIA3H3JD6S4V7DQQAPJ',
             secretAccessKey: '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',
             region: REGION
         });
-        
+
         // Create S3 instance
         const s3 = new AWS.S3();
-        
+
         // Prepare params for getObject operation
         const params = {
             Bucket: S3_BUCKET,
             Key: fileName
         };
-        
+
         // Get object from S3
         s3.getObject(params, (err, data) => {
             if (err) {
@@ -69,16 +66,16 @@ function Eastern() {
             } else {
                 // Create a temporary URL for downloading the file
                 const url = URL.createObjectURL(new Blob([data.Body]));
-                
+
                 // Create a temporary link element
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', fileName);
-                
+
                 // Simulate click on the link to start downloading
                 document.body.appendChild(link);
                 link.click();
-                
+
                 // Clean up
                 document.body.removeChild(link);
             }
@@ -87,19 +84,18 @@ function Eastern() {
 
     return (
         <div>
-            <NavBar/>
-            <h1>Welome to the </h1>
+            <h1>Welcome to the </h1>
             <h2>Eastern Section</h2>
             <div id="cover" className="searchBar">
-                <input 
-                    type="text" 
-                    onChange={handleSearchChange} 
-                    placeholder="Search by title or artist" 
-                    value={searchQuery} 
+                <input
+                    type="text"
+                    onChange={handleSearchChange}
+                    placeholder="Search by title or artist"
+                    value={searchQuery}
                 />
                 <button type="submit">
                     <span id="s-circle"></span>
-                    <FaSearch /> {/* React-icons search icon */}
+                    <FaSearch />
                 </button>
             </div>
             {tableLoading && <p>Loading...</p>}
@@ -107,15 +103,20 @@ function Eastern() {
                 filteredData.map((item, index) => (
                     <div key={index} className="rectangle">
                         <h2>{item.name}</h2>
-                        <img className="img" src={item.image} alt={item.name} />
+                        <img
+                            className="img"
+                            src={item.preview_related || 'placeholder.jpg'} // Show preview image or placeholder
+                            alt={item.name || 'No Image'}
+                            style={{ width: '150px', height: '150px', objectFit: 'cover' }} // Adjust styles as needed
+                        />
                         <p>Genre: {item.genre}</p>
                         <p>Artist: {item.artistName}</p>
                         <p>Date Published: {item.datePublished}</p>
-                        <button onClick={() => downloadFromS3(item.file_name)}>Download</button>
+                        <button onClick={() => downloadFromS3(item.file_name)} className='download-button'>Download</button>
                     </div>
                 ))
             ) : (
-                <p>No results found? Contact us <a href='mailto:antoun.atallah@lau.edu'> here</a> and send us the piece/partition you want us to add.  </p>
+                <p>No results found? Contact us <a href='mailto:antoun.atallah@lau.edu'>here</a> to request a piece.</p>
             )}
         </div>
     );

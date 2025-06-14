@@ -88,12 +88,12 @@ const Announcements = () => {
         }
     };
 
-    const handleCopyLink = (postId) => {
-        const postUrl = `${window.location.origin}/AnnouncementsPage/${postId}`;
-        navigator.clipboard.writeText(postUrl)
-            .then(() => setCopiedLink(postId))
-            .catch((error) => console.error('Error copying link:', error));
-    };
+    // const handleCopyLink = (postId) => {
+    //     const postUrl = `${window.location.origin}/AnnouncementsPage/${postId}`;
+    //     navigator.clipboard.writeText(postUrl)
+    //         .then(() => setCopiedLink(postId))
+    //         .catch((error) => console.error('Error copying link:', error));
+    // };
 
     const checkScrollTop = () => {
         if (!showScroll && window.pageYOffset > 300) {
@@ -134,9 +134,9 @@ const Announcements = () => {
                                 <small><strong>Posted on:</strong> {new Date(announcement.created_at).toLocaleString()}</small>
                             </div>
                             <p className="announcement-text">Description: {announcement.post_text}</p>
-                            <button onClick={() => handleCopyLink(announcement.post_id)} className="copy-link-button">
+                            {/* <button onClick={() => handleCopyLink(announcement.post_id)} className="copy-link-button">
                                 {copiedLink === announcement.post_id ? 'Link Copied!' : 'Copy Link'}
-                            </button>
+                            </button> */}
                             <button onClick={() => fetchUserInfo(announcement.displayName)} className="fetch-user-info-button">
                                 {activeUserInfo[announcement.displayName] ? 'Hide Info' : 'Contact us'}
                             </button>

@@ -137,6 +137,48 @@ app.post('/posts/:id/comment', (req, res) => {
     });
 });
 
+// Route for fetching posts by a specific user
+app.get('/posts/user', (req, res) => {
+    const userId = req.query.user_id;
+
+    if (!userId) {
+        return res.status(400).json({ message: 'Missing user_id query parameter' });
+    }
+
+    const query = `
+        SELECT p.*, u.displayName as user_displayname 
+        FROM posts p 
+        JOIN users u ON p.user_id = u.id 
+        WHERE p.user_id = ? 
+        ORDER BY p.created_at DESC`;
+
+    pool.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error("Error fetching user posts:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        res.json(results);
+    });
+});
+
+
+// Route for fetching all posts (no user filter)
+app.get('/posts/all', (req, res) => {
+    const query = `
+        SELECT p.*, u.displayName as user_displayname 
+        FROM posts p 
+        JOIN users u ON p.user_id = u.id 
+        ORDER BY p.created_at DESC`;
+
+    pool.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching all posts:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        res.json(results);
+    });
+});
+
 // Route for deleting a post
 app.delete('/posts/:id', (req, res) => {
     const postId = req.params.id;

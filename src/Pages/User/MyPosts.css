@@ -12,64 +12,81 @@
     background-color: #f9f9f9;
     min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Arrange tabs at the top and content below */
+    flex-direction: column;
+    align-items: center; /* Center content within */
 }
 
 .mps-tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+   
 }
 
 .mps-tabs button {
     background: none;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 12px; /* Adjusted padding */
     font-size: 16px;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s, color 0.3s;
+    margin: 0 5px; /* Reduced margin */
+    color: #333;
 }
 
 .mps-tabs button.active {
-    border-bottom: 2px solid #007bff;
+    border-bottom: 3px solid #007bff;
     color: #007bff;
+    font-weight: bold;
 }
 
 .mps-feed-container {
     display: flex;
-    justify-content: flex-end; /* Align content to the right */
+    justify-content: center; /* Center content */
     width: 100%;
     flex: 1;
 }
 
 .mps-feed-content {
-    width: 75%; /* Adjust the width as needed */
-    max-width: 1200px; /* Adjust the max-width as needed */
+    width: 90%; /* More responsive width */
+    max-width: 800px; /* Adjusted max-width for better layout */
+    display: flex;
+    flex-direction: column; /* Stack announcements/posts */
+    align-items: center; /* Center items horizontally */
 }
 
 .mps-announcements, .mps-feed {
-    background: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* background: #fff;
+    border-radius: 10px; */
+    padding: 10px; /* Reduced padding */
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+    margin-top: 10px; /* Reduced margin */
+    width: 100%; /* Full width for announcements */
+    max-width: 600px; /* Center with max-width */
 }
 
 .mps-feed h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduced margin */
     color: #007bff;
+    text-align: center;
 }
 
 .mps-announcement-item, .mps-feed-post {
-    display: inline-block;
-    width: calc(25% - 20px); /* 4 items per row with 20px gap */
-    margin: 10px;
-    vertical-align: top;
-    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Full width for better use of space */
+    margin: 5px 0; /* Vertical spacing between items */
+    background: #f2f2f2;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.mps-announcement-item:hover, .mps-feed-post:hover {
+    transform: translateY(-1px);
 }
 
 .mps-announcement-header {
@@ -84,23 +101,23 @@
 }
 
 .mps-announcement-text, .mps-feed-post p {
-    margin: 10px 0;
+    margin: 8px 0;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 img, video {
     width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin-top: 10px;
+    border-radius: 10px;
+    margin-top: 8px;
 }
 
 .mps-delete-button {
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 10px;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s;
@@ -112,8 +129,12 @@ img, video {
 }
 
 .mps-success-message, .mps-error-message {
-    color: #28a745;
     margin-top: 10px;
+    text-align: center;
+}
+
+.mps-success-message {
+    color: #28a745;
 }
 
 .mps-error-message {

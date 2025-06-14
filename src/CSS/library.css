@@ -91,19 +91,20 @@ body {
 }
 
 .searchBar {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0;
+  display: flex; /* Align input and button in a row */
+  justify-content: center; /* Center the search bar */
+  margin-bottom: 15px; /* Add margin below the search bar */
 }
 
 .searchBar input[type="text"] {
-  width: 50%;
+  width: 50%; /* Set width of the input */
   padding: 12px 20px;
   border: 2px solid #8b5c30;
-  border-right: none;
+  border-right: none; /* Remove right border to merge with the button */
   border-radius: 20px 0 0 20px;
   font-size: 16px;
   outline: none;
+  height: 50%; /* Keep height as specified */
 }
 
 .searchBar button {
@@ -111,10 +112,22 @@ body {
   border: none;
   background-color: #8b5c30;
   color: white;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 20px 20px 0; /* Rounded right corners */
   cursor: pointer;
   transition: background-color 0.3s;
+  display: flex; /* Ensure button takes full height of the input */
+  align-items: center; /* Align button content vertically */
+  height: auto; /* Match the input height */
+  margin: 0; /* Remove any additional margin around the button */
+  line-height: 1; /* Reset the line height for better alignment */
 }
+
+
+/* Button hover effect */
+.searchBar button:hover {
+  background-color: #734922; /* Darker shade on hover */
+}
+
 
 .searchBar button:hover {
   background-color: #6e4824;

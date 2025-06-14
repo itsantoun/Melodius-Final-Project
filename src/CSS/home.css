@@ -87,7 +87,7 @@ body{
 /* What is this website for? */
 
   .h2-what-for{
-  margin-top: -40px;
+  /* margin-top: -3%; */
   font-family: 'Bookshop Regular';
   font-style: normal; 
   }
@@ -205,6 +205,7 @@ body{
     list-style-type: none;
     padding-left: 20; /* Reset padding */
     text-align: left;
+    margin-top: -3%;
   }
   
   .landing-page-steps li {

@@ -9,7 +9,6 @@ function Classical() {
     const [tableData, setTableData] = useState([]);
     const [tableLoading, setTableLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [downloading, setDownloading] = useState(false);
 
     useEffect(() => {
         // Fetch table data when component mounts
@@ -44,14 +43,13 @@ function Classical() {
     );
 
     const downloadFromS3 = (fileName) => {
-        setDownloading(true);
         const S3_BUCKET = "upload-music-sheets";
         const REGION = "eu-west-3";
         
         // Configure AWS SDK
         AWS.config.update({
             accessKeyId: 'AKIA3H3JD6S4V7DQQAPJ',
-        secretAccessKey: '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',
+            secretAccessKey: 'wp/uJlLoydEzwFcu8vRpJUixtXm2s4a8Nhz79UK6',
             region: REGION
         });
         
@@ -66,7 +64,6 @@ function Classical() {
         
         // Get object from S3
         s3.getObject(params, (err, data) => {
-            setDownloading(false);
             if (err) {
                 console.error('Error downloading file from S3:', err);
             } else {
@@ -90,8 +87,8 @@ function Classical() {
 
     return (
         <div>
-            <NavBar/>
-            <h1>Welome to the </h1>
+            {/* <NavBar/> */}
+            <h1>Welcome to the </h1>
             <h2>Classical Section</h2>
             <div id="cover" className="searchBar">
                 <input 
@@ -106,21 +103,19 @@ function Classical() {
                 </button>
             </div>
             {tableLoading && <p>Loading...</p>}
-            {downloading && <p>Downloading...</p>}
             {filteredData.length > 0 ? (
-                filteredData.map((item, index) => (
-                    <div key={index} className="rectangle">
-                        <h2>{item.name}</h2>
-                        <img className="img" src={item.image} alt={item.name} />
-                        <p>Genre: {item.genre}</p>
-                        <p>Artist: {item.artistName}</p>
-                        <p>Date Published: {item.datePublished}</p>
-                        <button onClick={() => downloadFromS3(item.file_name)}>Download</button>
-                    </div>
-                ))
-            ) : (
-                <p>No results found? Contact us <a href='mailto:antoun.atallah@lau.edu'> here</a> and send us the piece you want us to add.  </p>
-            )}
+    filteredData.map((item, index) => (
+        <div key={index} className="rectangle">
+            <h2>{item.name}</h2>
+            <p>Genre: {item.genre}</p>
+            <p>Artist: {item.artistName}</p>
+            <p>Date Published: {item.datePublished}</p>
+            <button onClick={() => downloadFromS3(item.file_name)} className='download-button'>Download</button>
+        </div>
+    ))
+) : (
+    <p>No results found? Contact us <a href='mailto:antoun.atallah@lau.edu'> here</a> and send us the piece/partition you want us to add.</p>
+)}
         </div>
     );
 }

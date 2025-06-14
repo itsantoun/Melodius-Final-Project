@@ -6,6 +6,7 @@
   align-items: center;
   height: 100vh;
   background-color: #f3f4f6;
+  overflow: hidden;
 }
 
 .box {
@@ -95,6 +96,7 @@ span.error {
 p {
   margin-top: 10px;
   font-size: 14px;
+  
 }
 
 p a {
@@ -106,7 +108,7 @@ p a:hover {
   text-decoration: underline;
 }
 
-.img {
+.signupIMG{
   max-width: 50%; /* Set the maximum width of the image to fill the available space */
   max-height: 100%; /* Set the maximum height of the image to fill the available space */
   height: auto; /* Maintain aspect ratio */

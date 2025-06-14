@@ -49,7 +49,7 @@ function Library() {
 
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
 
       <div className="container">
         <div className="overlay">

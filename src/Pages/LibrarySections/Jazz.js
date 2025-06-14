@@ -87,7 +87,7 @@ function Jazz() {
 
     return (
         <div>
-            <NavBar/>
+            {/* <NavBar/> */}
             <h1>Welcome to the </h1>
             <h2>Jazz Section</h2>
             <div id="cover" className="searchBar">
@@ -104,19 +104,18 @@ function Jazz() {
             </div>
             {tableLoading && <p>Loading...</p>}
             {filteredData.length > 0 ? (
-                filteredData.map((item, index) => (
-                    <div key={index} className="rectangle">
-                        <h2>{item.name}</h2>
-                        <img className="img" src={item.image} alt={item.name} />
-                        <p>Genre: {item.genre}</p>
-                        <p>Artist: {item.artistName}</p>
-                        <p>Date Published: {item.datePublished}</p>
-                        <button onClick={() => downloadFromS3(item.file_name)}>Download</button>
-                    </div>
-                ))
-            ) : (
-                <p>No results found? Contact us <a href='mailto:antoun.atallah@lau.edu'> here</a> and send us the piece/partition you want us to add.  </p>
-            )}
+    filteredData.map((item, index) => (
+        <div key={index} className="rectangle">
+            <h2>{item.name}</h2>
+            <p>Genre: {item.genre}</p>
+            <p>Artist: {item.artistName}</p>
+            <p>Date Published: {item.datePublished}</p>
+            <button onClick={() => downloadFromS3(item.file_name)} className='download-button'>Download</button>
+        </div>
+    ))
+) : (
+    <p>No results found? Contact us <a href='mailto:antoun.atallah@lau.edu'> here</a> and send us the piece/partition you want us to add.</p>
+)}
         </div>
     );
 }

@@ -1,8 +1,8 @@
-import { Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Navbar from './Pages/NavBar';
 import Home from './Pages/Home';
-import About from './Pages/About'
+import About from './Pages/About';
 
 import UserDashboard from './Pages/User/UserDashboard';
 
@@ -21,55 +21,46 @@ import ClassicalSection from './Pages/LibrarySections/Classical';
 import JazzSection from './Pages/LibrarySections/Jazz';
 import EasternSection from './Pages/LibrarySections/Eastern';
 
-
 // CRUD Functions:
 import AddSheets from './Pages/Admin_aws/AddSheets';
 import FeedPage from './Pages/feeds/feedPage';
 import AnnouncementsPage from './Pages/feeds/Announcements';
 import MyPost from './Pages/User/MyPosts';
+import Manage_Content from './Pages/Admin_aws/Manage_Content';
 
 function App() {
-  // const location = useLocation();
-
   return (
-    
-    <>
-      <div className='container'>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/Navbar' element={<Account><Navbar /></Account>} />
-          <Route path='/about' element={<About />} />
+    <Account> {/* Wrapping entire app in Account context */}
+      <>
+        <Navbar /> {/* Global Navbar */}
+        <div className='container'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
 
+            <Route path='/AddSheets' element={<AddSheets />} />
+            <Route path='/Library' element={<Library />} />
+            <Route path='/Classical' element={<ClassicalSection />} />
+            <Route path='/Jazz' element={<JazzSection />} />
+            <Route path='/Eastern' element={<EasternSection />} />
+            <Route path='/Manage_Content' element={<Manage_Content/>}/>
 
-          <Route path='/AddSheets' element={<AddSheets />} />
-          <Route path='/Library' element={<Library />} />
-          <Route path='/Classical' element={<ClassicalSection />} />
-          <Route path='/Jazz' element={<JazzSection />} />
-          <Route path='/Eastern' element={<EasternSection />} />
-          
-          
-          <Route path='/signup' element={<Account><Signup /></Account> } />
-          <Route path='/signin' element={<Account><Signin /></Account>} />
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
-          
-         
-         
-          <Route path='/UserDashboard' element={ <Account> <UserDashboard /> </Account> } />
-          <Route path='/Profile' element={ <Account> <Profile /> </Account> } />
-          <Route path='/AdminDashboard' element={ <Account> <AdminDashboard /> </Account> } />
-          <Route path='/ManageUsers' element={ <Account> <ManageUsers /> </Account> } />
-         
-          <Route path='/FeedPage' element={<Account> <FeedPage /> </Account>} />
-          <Route path='/AnnouncementsPage' element={<Account> <AnnouncementsPage /> </Account>} />
-          <Route path='/My_Post' element={<Account><MyPost /></Account>} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/signin' element={<Signin />} />
+            <Route path='/forgotPassword' element={<ForgotPassword />} />
 
-         
-          
-          
-          
-        </Routes>
-      </div>
-    </>
+           
+            <Route path='/Profile' element={<Profile />} />
+            <Route path='/AdminDashboard' element={<AdminDashboard />} />
+            <Route path='/ManageUsers' element={<ManageUsers />} />
+
+            <Route path='/FeedPage' element={<FeedPage />} />
+            <Route path='/AnnouncementsPage' element={<AnnouncementsPage />} />
+            <Route path='/My_Post' element={<MyPost />} />
+          </Routes>
+        </div>
+      </>
+    </Account>
   );
 }
 

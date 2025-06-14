@@ -25,8 +25,10 @@ function AdminSidebar() {
    <div className='items'>
    <Link to='/UserDashboard'><MdOutlineDashboard /> Dashboard</Link>
    <Link to='/ManageUsers'><CgProfile />Manage Users</Link>
+   <Link to='/Manage_Content'><IoLibraryOutline  /> Manage Posts/Announcements</Link>
    <Link to='/AddSheets'><BsChatSquareDots  />Manage Sheets</Link>
    <Link to='/library'><IoLibraryOutline  /> Library</Link>
+   
    
 </div>
 

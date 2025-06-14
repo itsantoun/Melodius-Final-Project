@@ -19,8 +19,9 @@
   max-width: 100%; /* Set the maximum width of the image to fill the available space */
   max-height: 100%; /* Set the maximum height of the image to fill the available space */
   height: auto; /* Maintain aspect ratio */
-  margin-right: 1rem;
-  margin-left: 1rem;
+  /* margin-right: 50%; */
+  margin: 1%;
+  /* margin-left: 1%; */
   margin-top: 0.3rem;
   border-radius: 0 5px 5px 0; /* Add border radius to the right side */
 }
@@ -100,6 +101,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin: 2%;
 }
 
 button:hover {
